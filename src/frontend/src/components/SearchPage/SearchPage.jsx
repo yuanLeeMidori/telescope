@@ -67,6 +67,7 @@ function SearchPage() {
 
   function onChangeHandler(value) {
     setSearchText(value);
+    console.log(value);
   }
 
   function onFilterChangeHandler(value) {

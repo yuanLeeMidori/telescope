@@ -36,7 +36,6 @@ function AuthorSearchInput() {
         id="authorSearch"
         className={classes.input}
         placeholder="How to Get Started in Open Source"
-        inputProps={{ 'aria-label': 'search telescope' }}
         variant="outlined"
         list="searchData"
       />
@@ -58,7 +57,6 @@ function PostSearchInput() {
       id="postSearch"
       className={classes.input}
       placeholder="How to Get Started in Open Source"
-      inputProps={{ 'aria-label': 'search telescope' }}
       variant="outlined"
     />
   );

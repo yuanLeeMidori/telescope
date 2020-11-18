@@ -151,8 +151,9 @@ function CustomizedInputBase(props) {
             <FormControl fullWidth={true}>
               <SearchInput
                 filter={filter}
-                onChange={(event) => onTextChange(event)}
                 value={searchText}
+                onChange={(event) => onTextChange(event.target.value)}
+                inputProps={{ 'aria-label': 'search telescope' }}
               />
             </FormControl>
           </Grid>
