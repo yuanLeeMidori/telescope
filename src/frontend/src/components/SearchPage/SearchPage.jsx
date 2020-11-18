@@ -9,6 +9,7 @@ import useSiteMetadata from '../../hooks/use-site-metadata';
 
 import Timeline from '../Posts/Timeline.jsx';
 import SearchBar from '../SearchBar';
+import SearchInput from '../SearchInput';
 import Spinner from '../Spinner';
 
 const useStyles = makeStyles(() => ({
@@ -86,6 +87,7 @@ function SearchPage() {
         onFormSubmit={onFormSubmitHandler}
         onFilterChangeHandler={onFilterChangeHandler}
       />
+      <SearchInput searchText={searchText} onChangeHandler={onChangeHandler} filter={filter} />
       <br />
       <Container className={classes.searchResults}>{displayResults()}</Container>
     </div>

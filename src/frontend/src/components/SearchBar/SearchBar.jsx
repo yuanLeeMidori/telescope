@@ -15,6 +15,8 @@ import {
   Fab,
 } from '@material-ui/core';
 
+import SearchInput from '../SearchInput';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     overflow: 'visible',
@@ -28,24 +30,6 @@ const useStyles = makeStyles((theme) => ({
   card: {
     padding: theme.spacing(2, 4, 2, 4),
     backgroundColor: theme.palette.background.default,
-  },
-  input: {
-    fontSize: '1.6rem',
-    '&:hover': {
-      border: '2px solid #E5E5E5',
-    },
-    '&:focus': {
-      border: '2px solid #333E64',
-    },
-    '& > *': {
-      fontSize: '1.6rem !important',
-      color: theme.palette.text.default,
-    },
-    height: '55px',
-    backgroundColor: '#E5E5E5',
-    paddingLeft: '10px',
-    border: '1px solid #A0A0A0',
-    borderRadius: '5px',
   },
   header: {
     padding: 0,
@@ -165,18 +149,11 @@ function CustomizedInputBase(props) {
           </Grid>
           <Grid item xs={12} sm={10} lg={10}>
             <FormControl fullWidth={true}>
-              <input
-                type="text"
-                name="searchbar"
-                className={classes.input}
-                placeholder="How to Get Started in Open Source"
-                inputProps={{ 'aria-label': 'search telescope' }}
+              <SearchInput
+                filter={filter}
                 onChange={(event) => onTextChange(event)}
                 value={searchText}
-                variant="outlined"
-                list="searchData"
-              ></input>
-              <datalist id="searchData"></datalist>
+              />
             </FormControl>
           </Grid>
         </Grid>
