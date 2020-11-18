@@ -37,6 +37,8 @@ function AuthorSearchInput() {
         className={classes.input}
         placeholder="How to Get Started in Open Source"
         variant="outlined"
+        onChange={(event) => onTextChange(event)}
+        inputProps={{ 'aria-label': 'search telescope' }}
         list="searchData"
       />
       <datalist id="searchData">
@@ -58,6 +60,8 @@ function PostSearchInput() {
       className={classes.input}
       placeholder="How to Get Started in Open Source"
       variant="outlined"
+      onChange={(event) => onTextChange(event)}
+      inputProps={{ 'aria-label': 'search telescope' }}
     />
   );
 }

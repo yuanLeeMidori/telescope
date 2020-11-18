@@ -152,7 +152,7 @@ function CustomizedInputBase(props) {
               <SearchInput
                 filter={filter}
                 value={searchText}
-                onChange={(event) => onTextChange(event.target.value)}
+                onChange={(event) => onTextChange(event)}
                 inputProps={{ 'aria-label': 'search telescope' }}
               />
             </FormControl>
