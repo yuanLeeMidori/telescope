@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     height: '55px',
     backgroundColor: theme.palette.background.default,
     paddingLeft: '10px',
+    // The border around some of the inputs was a default of the type so I had to add my own
     border: '1px solid #B3B6B7',
     borderRadius: '7px',
   },
