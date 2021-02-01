@@ -3,7 +3,7 @@ import { InferGetStaticPropsType } from 'next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { Fab, Grid, Typography } from '@material-ui/core';
-//=========
+
 import useSiteMetadata from '../hooks/use-site-metadata';
 import BannerDynamicItems from './BannerDynamicItems';
 import ScrollAction from './ScrollAction';
