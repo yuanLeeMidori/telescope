@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       fontSize: '3em',
+      whiteSpace: 'normal',
       fontWeight: 'bold',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
@@ -162,7 +163,20 @@ const PostComponent = ({ postUrl }: Props) => {
   const sectionEl = useRef<HTMLElement>(null);
   // Grab the post data from our backend so we can render it
   const { data: post, error } = useSWR<Post>(postUrl);
-  const [expandHeader, setExpandHeader] = useState(false);
+  // const [expandHeader, setExpandHeader] = useState(false);
+  function resizeFont(input: string) {
+    const element = document.getElementById(input);
+    if (element != null) {
+      console.log(
+        `client: ${element.clientHeight} | scroll: ${element.scrollHeight} | offset: ${element.offsetHeight} | title: ${element.title}`
+      );
+      if (element.clientHeight > element.scrollHeight) {
+        console.log(`too big`);
+      }
+    }
+
+    return '';
+  }
 
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
@@ -207,12 +221,13 @@ const PostComponent = ({ postUrl }: Props) => {
       <ListSubheader className={classes.titleContainer}>
         <AdminButtons />
         <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
+          {`${resizeFont(post.id)}`}
           <span
             role="button"
             tabIndex={0}
-            onClick={() => setExpandHeader(!expandHeader)}
-            onKeyDown={() => setExpandHeader(!expandHeader)}
-            className={expandHeader ? classes.expandHeader : classes.collapseHeader}
+            // onClick={() => setExpandHeader(!expandHeader)}
+            // onKeyDown={() => setExpandHeader(!expandHeader)}
+            // className={expandHeader ? classes.expandHeader : classes.collapseHeader}
           >
             {post.title}
           </span>
