@@ -3,6 +3,7 @@ import useSWR from 'swr';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Box, Grid, Typography, ListSubheader, createStyles } from '@material-ui/core';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
+import DynamicFont from 'react-dynamic-font';
 import { Post } from '../../interfaces';
 import AdminButtons from '../AdminButtons';
 import Spinner from '../Spinner';
@@ -40,11 +41,12 @@ const useStyles = makeStyles((theme: Theme) =>
       cursor: 'pointer',
     },
     title: {
+      // textSizeAdjust: 'auto',
       fontSize: '3em',
-      whiteSpace: 'normal',
+      whiteSpace: 'nowrap',
       fontWeight: 'bold',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
+      overflow: 'auto',
+      // textOverflow: 'ellipsis',
       textAlign: 'center',
     },
     author: {
@@ -221,14 +223,16 @@ const PostComponent = ({ postUrl }: Props) => {
       <ListSubheader className={classes.titleContainer}>
         <AdminButtons />
         <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
-          {`${resizeFont(post.id)}`}
+          {`${resizeFont(`${post.id} span`)}`}
           <span
             role="button"
             tabIndex={0}
+            id={`${post.id} span`}
             // onClick={() => setExpandHeader(!expandHeader)}
             // onKeyDown={() => setExpandHeader(!expandHeader)}
             // className={expandHeader ? classes.expandHeader : classes.collapseHeader}
           >
+            {/* <DynamicFont content={post.title} /> */}
             {post.title}
           </span>
         </Typography>
