@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import useSWR from 'swr';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Box, Grid, Typography, ListSubheader, createStyles } from '@material-ui/core';
+import { Box, Grid, Typography, ListSubheader, createStyles, Avatar } from '@material-ui/core';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
 import { Post } from '../../interfaces';
 import AdminButtons from '../AdminButtons';
@@ -145,6 +145,19 @@ const useStyles = makeStyles((theme: Theme) =>
         height: '4em',
       },
     },
+    avatar: {
+      color: '#E5E5E5',
+      fontSize: '3rem',
+      backgroundColor: '#121D59',
+      width: '2.5em',
+      height: '2.5em',
+      [theme.breakpoints.down(1200)]: {
+        // margin: '0.5em 0',
+        fontSize: '1.5em',
+        width: '2.5em',
+        height: '2.5em',
+      },
+    },
   })
 );
 
@@ -222,7 +235,14 @@ const PostComponent = ({ postUrl }: Props) => {
       <ListSubheader className={classes.postInfo}>
         <div className={classes.authorInfoContainer}>
           <div className={classes.authorAvatarContainer}>
-            <div className={classes.circle} />
+            {/* <div className={classes.circle} /> */}
+            <Avatar className={classes.avatar}>{`${post.feed.author
+              .split(' ')[0]
+              .substring(0, 1)
+              .toUpperCase()} ${post.feed.author
+              .split(' ')
+              [post.feed.author.length - 1].substring(0, 1)
+              .toUpperCase()}`}</Avatar>
           </div>
           <div className={classes.authorNameContainer}>
             <Typography variant="subtitle2" className={classes.author}>
