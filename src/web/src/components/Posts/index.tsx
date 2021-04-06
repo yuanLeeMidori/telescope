@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useRef, createRef, useState, useEffect } from 'react';
 import { useSWRInfinite } from 'swr';
 import { Container, createStyles, Grid } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -75,6 +75,30 @@ const Posts = () => {
     }
   }, [currentPostId, prevPostId, setBadgeHint]);
 
+  const postRef = createRef<HTMLDivElement>();
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      threshold: 1.0,
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            console.log('able to see posts');
+          }
+        }),
+      options
+    );
+    observer.observe(postRef.current!);
+    const postRefCopy = postRef.current;
+    return () => {
+      observer.unobserve(postRefCopy as HTMLDivElement);
+    };
+  }, []);
+
   // TODO: need proper error handling
   if (error) {
     console.error('Error loading post data', error);
@@ -99,7 +123,7 @@ const Posts = () => {
   }
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} ref={postRef}>
       <div className={classes.postsWrapper}>
         <Timeline pages={data} nextPage={() => setSize(size + 1)} />
       </div>
