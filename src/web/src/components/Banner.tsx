@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, createRef } from 'react';
 import {
   makeStyles,
   Theme,
@@ -90,7 +90,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function Banner() {
+type BannerProps = {
+  onVisibilityChange: (is: any) => boolean;
+};
+
+export default function Banner({ onVisibilityChange }: BannerProps) {
   const classes = useStyles();
   const [gitInfo, setGitInfo] = useState({
     gitHubUrl: '',
@@ -148,8 +152,37 @@ export default function Banner() {
     getGitData();
   }, []);
 
+  const bannerRef = createRef<HTMLDivElement>();
+  // const [bannerIsVisible, setBannerIsVisible] = useState(true);
+  useEffect(() => {
+    const options = {
+      root: null,
+      threshold: 0.9,
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            console.log('seen banner');
+            onVisibilityChange(true);
+          }
+          if (!entry.isIntersecting) {
+            console.log('no banner!~');
+            onVisibilityChange(false);
+          }
+        }),
+      options
+    );
+    observer.observe(bannerRef.current!);
+    const bannerRefCopy = bannerRef.current;
+
+    return () => {
+      observer.unobserve(bannerRefCopy as HTMLDivElement);
+    };
+  });
   return (
-    <>
+    <div ref={bannerRef}>
       <div className={classes.heroBanner} ref={bannerAnchor}>
         <BannerDynamicItems />
         <LandingButtons />
@@ -177,6 +210,6 @@ export default function Banner() {
         </Fab>
       </div>
       <div className={classes.anchor} id="posts-anchor" ref={timelineAnchor} />
-    </>
+    </div>
   );
 }
