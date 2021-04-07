@@ -174,10 +174,10 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
     );
     observer.observe(timelineAnchor.current!);
 
-    const buttonRefCopy = timelineAnchor.current;
+    const timelineAnchorCopy = timelineAnchor.current;
 
     return () => {
-      observer.unobserve(buttonRefCopy as HTMLDivElement);
+      observer.unobserve(timelineAnchorCopy as HTMLDivElement);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
