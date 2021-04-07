@@ -78,7 +78,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     anchor: {
       position: 'relative',
-      top: '1rem',
     },
     container: {
       bottom: '0',
@@ -99,7 +98,6 @@ export default function Banner() {
   });
 
   const timelineAnchor = useRef<HTMLDivElement>(null);
-  const bannerAnchor = useRef<HTMLDivElement>(null);
 
   const toTimelineTrigger = useScrollTrigger({
     threshold: 50,
@@ -146,6 +144,37 @@ export default function Banner() {
       }
     }
     getGitData();
+  }, []);
+
+  // Observer banner
+  useEffect(() => {
+    const options = {
+      root: null,
+      threshold: 0.9,
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            console.log('BANNER VISIBLE:', entry);
+            // fire action to context
+          }
+          if (!entry.isIntersecting) {
+            console.log('BANNER NOT VISIBLE', entry);
+            // fire action to context
+          }
+        }),
+      options
+    );
+    observer.observe(timelineAnchor.current!);
+
+    const buttonRefCopy = timelineAnchor.current;
+
+    return () => {
+      observer.unobserve(buttonRefCopy as HTMLButtonElement);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
