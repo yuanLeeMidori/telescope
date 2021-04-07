@@ -103,6 +103,7 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
 
   const timelineAnchor = useRef<HTMLDivElement>(null);
   const bannerAnchor = useRef<HTMLDivElement>(null);
+
   const toTimelineTrigger = useScrollTrigger({
     threshold: 50,
     disableHysteresis: true,
@@ -176,7 +177,7 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
     const buttonRefCopy = timelineAnchor.current;
 
     return () => {
-      observer.unobserve(buttonRefCopy as HTMLButtonElement);
+      observer.unobserve(buttonRefCopy as HTMLDivElement);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
