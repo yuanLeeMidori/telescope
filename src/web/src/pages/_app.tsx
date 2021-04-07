@@ -4,7 +4,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 
 import NavBar from '../components/NavBar';
 import AuthProvider from '../components/AuthProvider';
-
+import BannerProvider from '../components/BannerContext';
 import { darkTheme, lightTheme } from '../theme';
 import usePreferredTheme from '../hooks/use-preferred-theme';
 import { ThemeContext } from '../components/ThemeProvider';
@@ -44,7 +44,9 @@ const App = ({ Component, pageProps }: AppProps) => {
     <ThemeContext.Provider value={{ theme, themeName: theme.palette.type, toggleTheme }}>
       <ThemeProvider theme={theme}>
         <AuthProvider>
-          <NavBar />
+          <BannerProvider>
+            <NavBar />
+          </BannerProvider>
           <Component {...pageProps} />
         </AuthProvider>
       </ThemeProvider>

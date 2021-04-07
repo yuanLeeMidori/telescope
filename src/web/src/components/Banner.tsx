@@ -1,10 +1,11 @@
-import { useEffect, useState, createRef } from 'react';
+import { useEffect, useState, createRef, createContext } from 'react';
 import { makeStyles, Theme, createStyles, Fab, Typography } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { telescopeUrl } from '../config';
 import BannerDynamicItems from './BannerDynamicItems';
 import ScrollAction from './ScrollAction';
 import LandingButtons from './BannerButtons';
+import { useBanner } from './BannerContext';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -110,6 +111,9 @@ export default function Banner() {
   }, [telescopeUrl]);
 
   // Observer banner
+  // const [bannerVisible, setBannerVisible] = useState<boolean>(false);
+  const dispatch = useBanner();
+  console.log(dispatch);
   const bannerRef = createRef<HTMLButtonElement>();
   useEffect(() => {
     const options = {
@@ -123,6 +127,7 @@ export default function Banner() {
           if (entry.isIntersecting) {
             console.log('BANNER VISIBLE:', entry);
             // fire action to context
+            // dispatch({ type: 'BANNER_IS_VISIBLE' });
           }
           if (!entry.isIntersecting) {
             console.log('BANNER NOT VISIBLE', entry);

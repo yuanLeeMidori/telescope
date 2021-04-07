@@ -11,6 +11,7 @@ import dynamic from 'next/dynamic';
 import NavBarButton, { NavBarIconProps } from './NavBarButton';
 import Logo from '../Logo';
 import Login from '../Login';
+import { useBanner } from '../BannerContext';
 
 /**  This will solve the problem of incorrect rendering of theme icon when theme preference is dark
  * This ensures that the version displayed to user is the client view which ties to the client's preference theme.
@@ -88,6 +89,10 @@ export default function NavBar() {
   const classes = useStyles();
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up(1024));
+  const {
+    state: { IsVisible },
+  } = useBanner();
+  console.log(IsVisible);
 
   return (
     <AppBar className={classes.root} position="fixed">
