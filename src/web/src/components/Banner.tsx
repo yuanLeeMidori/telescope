@@ -98,7 +98,7 @@ export default function Banner() {
   });
 
   const timelineAnchor = useRef<HTMLDivElement>(null);
-
+  const bannerAnchor = useRef<HTMLDivElement>(null);
   const toTimelineTrigger = useScrollTrigger({
     threshold: 50,
     disableHysteresis: true,
