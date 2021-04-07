@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, createRef } from 'react';
 import {
   makeStyles,
   Theme,
@@ -89,7 +89,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function Banner() {
+type BannerProps = {
+  onVisibilityChange: (is: any) => boolean;
+};
+
+export default function Banner({ onVisibilityChange }: BannerProps) {
   const classes = useStyles();
   const [gitInfo, setGitInfo] = useState({
     gitHubUrl: '',
@@ -157,12 +161,12 @@ export default function Banner() {
       (entries) =>
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            console.log('BANNER VISIBLE:', entry);
-            // fire action to context
+            console.log('seen banner');
+            onVisibilityChange(true);
           }
           if (!entry.isIntersecting) {
-            console.log('BANNER NOT VISIBLE', entry);
-            // fire action to context
+            console.log('no banner!~');
+            onVisibilityChange(false);
           }
         }),
       options
