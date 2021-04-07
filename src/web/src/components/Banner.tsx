@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, createRef } from 'react';
 import { makeStyles, Theme, createStyles, Fab, Typography } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { telescopeUrl } from '../config';
@@ -71,7 +71,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     anchor: {
       position: 'relative',
-      top: '1rem',
     },
     container: {
       bottom: '0',
@@ -110,6 +109,38 @@ export default function Banner() {
     getGitData();
   }, [telescopeUrl]);
 
+  // Observer banner
+  const bannerRef = createRef<HTMLButtonElement>();
+  useEffect(() => {
+    const options = {
+      root: null,
+      threshold: 0.9,
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            console.log('BANNER VISIBLE:', entry);
+            // fire action to context
+          }
+          if (!entry.isIntersecting) {
+            console.log('BANNER NOT VISIBLE', entry);
+            // fire action to context
+          }
+        }),
+      options
+    );
+    observer.observe(bannerRef.current!);
+
+    const buttonRefCopy = bannerRef.current;
+
+    return () => {
+      observer.unobserve(buttonRefCopy as HTMLButtonElement);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <div className={classes.heroBanner}>
@@ -140,7 +171,7 @@ export default function Banner() {
           </Fab>
         </ScrollAction>
       </div>
-      <div className={classes.anchor} id="posts-anchor" />
+      <div className={classes.anchor} ref={bannerRef} id="posts-anchor" />
     </>
   );
 }
